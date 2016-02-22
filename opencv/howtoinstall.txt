@@ -1,0 +1,162 @@
+
+Manuel Ignacio López Quintero
+
+    Home
+    Archive
+
+Install OpenCV on Ubuntu or Debian
+
+Note: This tutorial has been tested on Debian 8.0 "Jessie" with OpenCV 3.0.0 and Ubuntu 14.04 LTS with OpenCV 3.0.0 alpha. If you have successfully installed OpenCV following this tutorial with other OS or OpenCV version, please share your configuration. Thanks!
+
+Install OpenCV on Ubuntu or Debian is a bit long but very easy. You can install OpenCV from the Ubuntu or Debian repository or from the official site.
+
+INSTALL OPENCV FROM THE UBUNTU OR DEBIAN REPOSITORY
+
+You can install OpenCV from the Ubuntu or Debian repository:
+
+sudo apt-get install libopencv-dev python-opencv
+
+However, you will probably not have installed the latest version of OpenCV and you may miss some features (for example: Python 3 bindings do not exist in the repository).
+
+INSTALL OPENCV FROM THE OFFICIAL SITE
+
+To install the latest version of OpenCV be sure that you have removed the library from the repository with sudo apt-get autoremove libopencv-dev python-opencv and follow the steps below.
+
+If you want to do these steps automatically, you can execute this script with bash.
+
+1. KEEP UBUNTU OR DEBIAN UP TO DATE
+
+Open your terminal and execute:
+
+sudo apt-get update && sudo apt-get upgrade && sudo apt-get dist-upgrade && sudo apt-get autoremove
+
+2. INSTALL THE DEPENDENCIES
+
+Now install the dependencies:
+
+Build tools:
+
+sudo apt-get install build-essential cmake
+
+GUI:
+
+sudo apt-get install qt5-default libvtk6-dev
+
+Media I/O:
+
+sudo apt-get install zlib1g-dev libjpeg-dev libwebp-dev libpng-dev libtiff5-dev libjasper-dev libopenexr-dev libgdal-dev
+
+Video I/O:
+
+sudo apt-get install libdc1394-22-dev libavcodec-dev libavformat-dev libswscale-dev libtheora-dev libvorbis-dev libxvidcore-dev libx264-dev yasm libopencore-amrnb-dev libopencore-amrwb-dev libv4l-dev libxine2-dev
+
+Parallelism and linear algebra libraries:
+
+sudo apt-get install libtbb-dev libeigen3-dev
+
+Python:
+
+sudo apt-get install python-dev python-tk python-numpy python3-dev python3-tk python3-numpy
+
+Java:
+
+sudo apt-get install ant default-jdk
+
+Documentation:
+
+sudo apt-get install doxygen
+
+3. DOWNLOAD AND DECOMPRESS OPENCV
+
+Enter the OpenCV official website and download the latest version for Linux. Then decompress the downloaded file.
+
+4. COMPILE AND INSTALL OPENCV
+
+In your terminal, make sure you are within the OpenCV directory and run the following commands:
+
+mkdir build
+
+cd build
+
+cmake -DWITH_QT=ON -DWITH_OPENGL=ON -DWITH_VTK=ON -DWITH_TBB=ON -DWITH_GDAL=ON -DWITH_XINE=ON -DBUILD_EXAMPLES=ON ..
+
+make -j4
+
+sudo make install
+
+Now, configure OpenCV:
+
+sudo ldconfig
+
+Now, you have installed OpenCV. You can execute some examples builded and/or compile one demonstration.
+
+5. EXECUTE SOME OPENCV EXAMPLES
+
+Go to your OpenCV directory and execute a C++ example:
+
+cd build/bin
+
+./cpp-example-edge ../../samples/data/fruits.jpg
+
+Now, go to your OpenCV directory and execute a Python example:
+
+cd samples/python2
+
+python video.py
+
+Finally, go to your OpenCV directory and execute a Java example:
+
+cd samples/java/ant
+
+ant -DocvJarDir=../../../build/bin -DocvLibDir=../../../build/lib
+
+6. COMPILE A DEMONSTRATION
+
+Create a source file named demo.cpp with the following code:
+
+#include <opencv2/core/core.hpp>
+#include <opencv2/viz/vizcore.hpp>
+
+int main()
+{
+    cv::viz::Viz3d window = cv::viz::Viz3d("Viz demonstration");
+
+    cv::Point3d min(0.25, 0.0, 0.25);
+    cv::Point3d max(0.75, 0.5, 0.75);
+
+    cv::viz::WCube cube(min, max, true, cv::viz::Color::blue());
+    cube.setRenderingProperty(cv::viz::LINE_WIDTH, 4.0);
+
+    window.showWidget("Axis widget", cv::viz::WCoordinateSystem());
+    window.showWidget("Cube widget", cube);
+
+    while(!window.wasStopped()) {
+        window.spinOnce(1, true);
+    }
+
+    return 0;
+}
+
+Create a text file named CMakeLists.txt with the following code:
+
+cmake_minimum_required(VERSION 2.8.12)
+
+project(demo)
+
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+add_executable(demo demo.cpp)
+target_link_libraries(demo ${OpenCV_LIBS})
+
+Finally, build and execute:
+
+mkdir build && cd build && cmake .. && make
+
+./demo
+
+And that's it! You have installed OpenCV, run some examples, and compiled OpenCV code!
+
+Do you like this article? Share it with this link. Thanks for reading!
+
+All content created by Manuel Ignacio López Quintero under this license.
