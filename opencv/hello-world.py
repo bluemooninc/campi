@@ -1,5 +1,3 @@
-#!/usr/bin/python
-  @raspberrypi:/etc$IdentityFile ~/.ssh/id_rsa
 #--------------------------------------
 #    ___  ___  _ ____
 #   / _ \/ _ \(_) __/__  __ __
