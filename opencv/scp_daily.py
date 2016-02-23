@@ -9,8 +9,7 @@ from paramiko import SSHClient, AutoAddPolicy
 dt = datetime.datetime.today()
 HOST = 'ownedsns.com'
 PORT = 22
-USER = 'bluemoon'
-PRIVATE_KEY = '/home/pi/.ssh/sakura'
+PRIVATE_KEY = '/home/pi/.ssh/id_rsa'
 
 inifile = ConfigParser.SafeConfigParser()
 inifile.read("/home/pi/camlaps.ini")
@@ -26,7 +25,7 @@ fname = UPLOAD_PATH + PIID + os.path.basename(fpathname)
 def upload(local_file, remote_file):
     ssh = SSHClient()
     ssh.set_missing_host_key_policy(AutoAddPolicy())
-    ssh.connect(HOST, PORT, USER, key_filename=PRIVATE_KEY)
+    ssh.connect(HOST, PORT, serialno, key_filename=PRIVATE_KEY)
     sftp = ssh.open_sftp()
     try:
         sftp.stat(remote_file)
