@@ -7,7 +7,7 @@ import glob
 from paramiko import SSHClient, AutoAddPolicy
 
 dt = datetime.datetime.today()
-HOST = 'ownedsns.com'
+HOST = 'camlaps.com'
 PORT = 22
 PRIVATE_KEY = '/home/pi/.ssh/id_rsa'
 
