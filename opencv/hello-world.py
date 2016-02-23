@@ -116,7 +116,7 @@ def main():
   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
   s.connect((gw[2], 0))
   ipaddr = "IP:" + s.getsockname()[0]
-  gateway = "SN:" + serialno + " IN:" + identifyno
+  gateway = serialno + "-" + identifyno
   host = "Host:" + socket.gethostname()
   lcd_string(ipaddr,LCD_LINE_1)
   lcd_string(gateway,LCD_LINE_2)
