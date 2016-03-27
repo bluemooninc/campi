@@ -21,7 +21,12 @@ fourcc = 'H264'
 fps = 30     ## 30 flame par sec
 dt = datetime.datetime.today()
 
-seekfile = '/tmp/img%02d-*.jpg' % (dt.hour - 1,)
+dth = dt.hour - 1
+if dth<0:
+    dth = 23
+
+seekfile = '/tmp/img%02d-*.jpg' % (dth,)
+print seekfile
 lastCount = 0
 if glob.glob(seekfile):
     newestFile = max(glob.iglob(seekfile), key=os.path.getctime)
@@ -29,7 +34,7 @@ if glob.glob(seekfile):
         a = re.search('img(\w+)-(\w+)\.jpg', newestFile)
         lastCount = int(a.group(2)) + 1
 
-mfname = "/tmp/hour%02d.mp4" % (dt.hour-1,)
+mfname = "/tmp/hour%02d.mp4" % (dth,)
 if os.path.exists(mfname):
     os.remove(mfname)
 video = cv2.VideoWriter(mfname,cv2.VideoWriter_fourcc(*fourcc),fps,(frameWidth,frameHeight))
@@ -37,7 +42,7 @@ video = cv2.VideoWriter(mfname,cv2.VideoWriter_fourcc(*fourcc),fps,(frameWidth,f
 ## read jpg and write video
 ##
 for count in xrange(lastCount):
-    fname = "/tmp/img%02d-%04d.jpg" % (dt.hour-1,count,)
+    fname = "/tmp/img%02d-%04d.jpg" % (dth,count,)
     img = cv2.imread(fname)
     video.write(img)
 ##
