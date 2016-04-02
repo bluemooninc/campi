@@ -21,7 +21,6 @@ mp4fname = "weekday%d.mp4" % (dt.weekday(),)
 UPLOAD_PATH = upfolder + serialno + '/'
 newest = max(glob.iglob('/tmp/img*.jpg'), key=os.path.getctime)
 print newest
-scp.upload(newest,UPLOAD_PATH + mp4fname)
 scp.upload(newest,UPLOAD_PATH + mp4fname +'.jpg')
 ##
 ## ffmpeg make m3u8 and upload
