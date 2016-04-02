@@ -13,14 +13,19 @@ serialno = inifile.get("user","serialno")
 delay = inifile.getint("camera","delay")
 upfolder = inifile.get("user","uploadFolder")
 
+##
+## upload jpg
+##
 dt = datetime.datetime.today()
 mp4fname = "weekday%d.mp4" % (dt.weekday(),)
-UPLOAD_PATH = upfolder + serialno + '/' + mp4fname +'.jpg'
+UPLOAD_PATH = upfolder + serialno + '/'
 newest = max(glob.iglob('/tmp/img*.jpg'), key=os.path.getctime)
 print newest
-scp.upload(newest,UPLOAD_PATH)
-
+scp.upload(newest,UPLOAD_PATH + mp4fname)
+scp.upload(newest,UPLOAD_PATH + mp4fname +'.jpg')
+##
 ## ffmpeg make m3u8 and upload
+##
 fname, ext = os.path.splitext(mp4fname)
 command = 'ffmpeg -i /tmp/' + mp4fname + \
     ' -codec copy -map 0 -f segment -vbsf h264_mp4toannexb' + \
@@ -30,8 +35,7 @@ command = 'ffmpeg -i /tmp/' + mp4fname + \
 print command
 ret  =  sp.check_output( command.split(" ") )
 print ret
-
 for name in glob.glob('/tmp/' + fname + '-*'):
     print name
-    scp.upload(name,UPLOAD_PATH)
+    scp.upload(name,UPLOAD_PATH + os.path.basename(name))
 

@@ -29,6 +29,7 @@ def upload(local_file, remote_file):
             print 'no exist' + remote_file
         else:
             sftp.remove(remote_file)
+        print remote_file
         sftp.put(local_file, remote_file)
         sftp.close()
         ssh.close()
