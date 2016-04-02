@@ -19,8 +19,8 @@ fname = "hour%02d.mp4" % (dt.hour-1,)
 mp4fname = max(glob.iglob('/tmp/hour*.mp4'), key=os.path.getctime)
 print mp4fname
 if os.path.isfile(mp4fname): 
-  scp.upload(mp4fname,UPLOAD_PATH + os.path.basename(mp4fname))
-  jpgname = os.path.basename(mp4fname) + ".jpg"
+  fname, ext = os.path.splitext(os.path.basename(mp4fname))
+  jpgname = fname + ".jpg"
 
 currentjpg = max(glob.iglob('/tmp/img*.jpg'), key=os.path.getctime)
 if os.path.isfile(currentjpg): 
