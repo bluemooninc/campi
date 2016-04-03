@@ -19,7 +19,7 @@ upfolder = inifile.get("user","uploadFolder")
 UPLOAD_PATH = upfolder
 PIID = serialno + '/'
 
-fpathname = max(glob.iglob('/tmp/weekday*.mp4'), key=os.path.getctime)
+fpathname = max(glob.iglob('/home/pi/picture/weekday*.mp4'), key=os.path.getctime)
 fname = UPLOAD_PATH + PIID + os.path.basename(fpathname)
 
 def upload(local_file, remote_file):
@@ -40,6 +40,3 @@ def upload(local_file, remote_file):
 if __name__ == '__main__':
     print fpathname + ' to ' + fname
     upload(fpathname,fname)
-##    imagename = max(glob.iglob('/tmp/img*.jpg'), key=os.path.getctime)    
-##    Image.open(imagename).resize((400,225)).save('/tmp/thumb.jpg')    
-##    upload('/tmp/thumb.jpg', fname + '.jpg')

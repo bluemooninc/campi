@@ -1,3 +1,4 @@
+import shutil
 import scp
 import os.path
 import ConfigParser
@@ -14,6 +15,7 @@ delay = inifile.getint("camera","delay")
 upfolder = inifile.get("user","uploadFolder")
 
 UPLOAD_PATH = upfolder + serialno + '/current.jpg'
-newest = max(glob.iglob('/tmp/img*.jpg'), key=os.path.getctime)
+newest = max(glob.iglob('/home/pi/picture/img*.jpg'), key=os.path.getctime)
 print newest
+shutil.copyfile(newest,'/home/pi/picture/current.jpg')
 scp.upload(newest,UPLOAD_PATH)
