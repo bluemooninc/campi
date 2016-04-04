@@ -28,7 +28,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 s.connect((gw[2], 0))
 ipaddr = s.getsockname()[0]
 
-LOG_FILENAME = '/tmp/timelapse.log'
+LOG_FILENAME = '/var/log/timelapse.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
 logging.debug(cv2.__version__)
 logging.debug('timelapse start...')
@@ -42,7 +42,7 @@ fontscale = 2.0
 fontface = cv2.FONT_HERSHEY_PLAIN
 color = (255,190,0)
 dt = datetime.datetime.today()
-seekfile = '/tmp/img%02d-*.jpg' % dt.hour
+seekfile = '/home/pi/picture/img%02d-*.jpg' % dt.hour
 newestCount = 0
 ##
 ## capture start
@@ -61,7 +61,7 @@ while(cap.isOpened()):
     msg = now.strftime("%Y/%m/%d %H:%M:%S")
     cv2.putText(img,msg,location,fontface,fontscale,color,4)
     fname = "img%02d-%04d.jpg" % (dt.hour,count,)
-    fpath = "/tmp/" + fname
+    fpath = "/home/pi/picture/" + fname
     #logging.debug("debug:"+fname)
     if os.path.exists(fpath):
         os.remove(fpath)
