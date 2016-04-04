@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>Timelaps</title>
+
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+	<!-- Plugins -->
+	<link href="css/animations.css" rel="stylesheet">
+
+	<!-- Worthy core CSS file -->
+	<link href="../css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+	<nav id="tf-menu" class="navbar navbar-default navbar-fixed-top user-nav">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Camlaps</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+					<li><a href="index.html">Current</a></li>
+					<li><a href="24h.html">24hours</a></li>
+					<li><a href="daily.html">Daily</a></li>
+				</ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+	<div class="user_main text-center">
+		<div class="container">
+			<h2 class="about-section-title">Current Image</h2>
+			<img src="picture/current.jpg" alt="" id='hello' class="img-responsive current_image img-thumbnail"/>
+			<div class="nav_button">
+				<a class="about-section-btn" href="24h.html">24hours timelapse</a>
+				<a class="about-section-btn" href="daily.html">Daily timelapse</a>
+			</div>
+		</div>
+	</div>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script>
+		$(function(){
+			setTimeout(function(){
+				location.reload();
+			},60000);
+		});
+	</script>
+</body>
+</html>
+
