@@ -50,8 +50,12 @@ newestCount = 0
 # capture frames from the camera
 count = 0
 cap = cv2.VideoCapture(0)
-##cap.set(cv2.CV_CAP_PROP_FRAME_WIDTH, frameWidth)
-##cap.set(cv2.CV_CAP_PROP_FRAME_HEIGHT, frameHeight) 
+cap.set(3,frameWidth)
+cap.set(4,frameHeight)
+if not cap:  
+    print "Could not open camera"  
+    sys.exit()
+
 while(cap.isOpened()):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
