@@ -19,13 +19,14 @@ shottime = inifile.getint("camera","shottime")
 fourcc = 'H264'
 fps = 30     ## 30 flame par sec
 dt = datetime.datetime.today()
-fname = "/tmp/weekday%d.mp4" % (dt.weekday(),)
+fname = "/home/pi/picture/weekday%d.mp4" % (dt.weekday(),)
 video = cv2.VideoWriter(fname,cv2.VideoWriter_fourcc(*fourcc),fps,(frameWidth,frameHeight))
 ##
 ## read jpg and write video
 ##
 for count in xrange(24):
-    fname = "/tmp/hour%02d.mp4" % (count,)
+    fname = "/home/pi/picture/hour%02d.mp4" % (count,)
+    print fname
     cap = cv2.VideoCapture(fname)
     while(cap.isOpened()):
         ret, frame = cap.read()
