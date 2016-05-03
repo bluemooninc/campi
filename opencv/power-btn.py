@@ -22,7 +22,7 @@ GPIO.setup(BUTTON_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Set our input pin to 
 modeNo = 1 # 1=fast 2=slow
 menu = {1:"Mode", 2:"REC Start/Stop", 3:"Upload", 4:"Shutdown"}
 menuNo = 1
-proc = []
+pid = 0
 
 #
 # process check
@@ -74,21 +74,22 @@ def shutdown():
 #
 # timelapse
 #
-def timelapse(proc):
+def timelapse(pid):
     global modeNo
-    if existProc('timelapse'):
+    if pid != 0:
         sys.stdout.flush()
-        print 'current pid: ' + str(proc.pid)
-        os.kill(proc.pid, signal.SIGUSR1)
-        os.kill(proc.pid + 1, signal.SIGUSR1)
+        os.kill(pid, signal.SIGUSR1)
+        os.kill(pid + 1, signal.SIGUSR1)
         lcd.printLcd('REC stopped. Press A')
+        pid = 0
     else:
         proc = subprocess.Popen('python /home/pi/opencv/timelapse.py ' + str(modeNo),
             shell=True,
             stdin=subprocess.PIPE,
             stdout=subprocess.PIPE,
         )
-    return proc
+        pid = proc.pid
+    return pid
 #
 # upload
 #
@@ -118,13 +119,13 @@ def Input_1(channel):
     lcd.printLcd('MENU: ' + menu[menuNo] + ' Press B')
 
 def Input_2(channel):
-    global modeNo, menu, menuNo, proc
+    global modeNo, menu, menuNo, pid
     # Put whatever Button 2 does in here
     print 'Button 2';
     if menuNo==1:
         modeNo = setMode(modeNo)
     elif menuNo==2:
-        proc = timelapse(proc)   
+        pid = timelapse(pid)   
     elif menuNo==3:
         upload() 
     elif menuNo==4:
@@ -136,7 +137,6 @@ GPIO.add_event_detect(BUTTON_1, GPIO.BOTH, callback=Input_1, bouncetime=300)
 GPIO.add_event_detect(BUTTON_2, GPIO.BOTH, callback=Input_2, bouncetime=800) # Wait for Button 2 to be pressed
 
 # Start a loop that never ends
-lcd.printLcd('MENU: '+menu[menuNo])
 while True:
     # Put anything you want to loop normally in here
     sleep(60);           
