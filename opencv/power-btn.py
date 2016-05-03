@@ -20,7 +20,7 @@ GPIO.setup(BUTTON_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Set our input pin to 
 # Global Value
 #
 modeNo = 1 # 1=fast 2=slow
-menu = {1:"Mode", 2:"REC Start/Stop", 3:"Upload", 4:"Shutdown"}
+menu = {1:"Mode", 2:"REC Start/Stop", 3:"Upload", 4:"Shutdown", 5:"Information"}
 menuNo = 1
 pid = 0
 
@@ -106,13 +106,19 @@ def upload():
         proc.wait()
         lcd.printLcd('Upload Finish. Press A')    
 #
+# hello_world
+#
+def helloWorld():
+    proc = subprocess.Popen('python /home/pi/lcd/hello-world.py',shell=True,stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE)
+#
 # Create functions to run when the buttons are pressed
 #
 def Input_1(channel):
     global menu, menuNo
     # Put whatever Button 1 does in here
     print 'Button 1';
-    if menuNo < 4:
+    if menuNo < 5:
         menuNo += 1
     else:
         menuNo = 1
@@ -130,6 +136,9 @@ def Input_2(channel):
         upload() 
     elif menuNo==4:
         shutdown()
+    elif menuNo==5:
+        helloWorld()
+
     GPIO.setup(BUTTON_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Wait for Button 1 to be pressed, run the function in "callback" when it does, also software debounce for 300 ms to avoid triggering it multiple times a second
