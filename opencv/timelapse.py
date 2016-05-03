@@ -57,7 +57,7 @@ fontscale = 2.0
 fontface = cv2.FONT_HERSHEY_PLAIN
 color = (255,190,0)
 dt = datetime.datetime.today()
-seekfile = '/home/pi/picture/img%02d-*.jpg' % dt.day
+seekfile = '/home/pi/picture/img%02d-*.jpg' % dt.hour
 newestCount = 0
 ##
 ## capture start
@@ -72,7 +72,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     now = datetime.datetime.now()
     msg = now.strftime("%Y/%m/%d %H:%M:%S")
     cv2.putText(img,msg,location,fontface,fontscale,color,4)
-    fname = "img%02d-%04d.jpg" % (dt.day,count,)
+    fname = "img%02d-%04d.jpg" % (dt.hour,count,)
     fpath = "/home/pi/picture/" + fname
     #logging.debug("debug:"+fname)
     if os.path.exists(fpath):
