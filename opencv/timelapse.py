@@ -18,7 +18,10 @@ import sys
 ## Commande line parameter
 ##
 param = sys.argv
-modeNo = int(param[1])
+argc = len(param)
+modeNo = 1
+if (argc == 2):
+    modeNo = int(param[1])
 if modeNo < 1:
     modeNo = 1
 ##
