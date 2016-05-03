@@ -21,9 +21,7 @@ fourcc = 'H264'
 fps = 30     ## 30 flame par sec
 dt = datetime.datetime.today()
 
-dth = dt.hour - 1
-if dth<0:
-    dth = 23
+dth = dt.day
 
 seekfile = '/home/pi/picture/img%02d-*.jpg' % (dth,)
 print seekfile
@@ -34,7 +32,7 @@ if glob.glob(seekfile):
         a = re.search('img(\w+)-(\w+)\.jpg', newestFile)
         lastCount = int(a.group(2)) + 1
 
-mfname = "/home/pi/picture/hour%02d.mp4" % (dth,)
+mfname = "/home/pi/picture/day%02d.mp4" % (dth,)
 if os.path.exists(mfname):
     os.remove(mfname)
 video = cv2.VideoWriter(mfname,cv2.VideoWriter_fourcc(*fourcc),fps,(frameWidth,frameHeight))

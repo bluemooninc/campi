@@ -16,8 +16,8 @@ upfolder = inifile.get("user","uploadFolder")
 
 UPLOAD_PATH = upfolder + serialno + '/'
 dt = datetime.datetime.today()
-fname = "hour%02d.mp4" % (dt.hour-1,)
-mp4fname = max(glob.iglob('/home/pi/picture/hour*.mp4'), key=os.path.getctime)
+fname = "day%02d.mp4" % (dt.day,)
+mp4fname = max(glob.iglob('/home/pi/picture/day*.mp4'), key=os.path.getctime)
 print mp4fname
 if os.path.isfile(mp4fname): 
   fname, ext = os.path.splitext(os.path.basename(mp4fname))

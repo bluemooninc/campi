@@ -13,6 +13,14 @@ import socket
 import glob
 import re
 import lcd
+import sys
+##
+## Commande line parameter
+##
+param = sys.argv
+modeNo = int(param[1])
+if modeNo < 1:
+    modeNo = 1
 ##
 ## config
 ##
@@ -21,7 +29,7 @@ inifile.read("/home/pi/camlaps.ini")
 serialno = inifile.get("user","serialno")
 frameWidth = inifile.getint("camera","frameWidth")
 frameHeight = inifile.getint("camera","frameHeight")
-delay = inifile.getint("camera","delay")
+delay = inifile.getint("camera","delay") * modeNo
 shottime = inifile.getint("camera","shottime")
 
 ## get ip address
@@ -49,7 +57,7 @@ fontscale = 2.0
 fontface = cv2.FONT_HERSHEY_PLAIN
 color = (255,190,0)
 dt = datetime.datetime.today()
-seekfile = '/home/pi/picture/img%02d-*.jpg' % dt.hour
+seekfile = '/home/pi/picture/img%02d-*.jpg' % dt.day
 newestCount = 0
 ##
 ## capture start
@@ -64,7 +72,7 @@ for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=
     now = datetime.datetime.now()
     msg = now.strftime("%Y/%m/%d %H:%M:%S")
     cv2.putText(img,msg,location,fontface,fontscale,color,4)
-    fname = "img%02d-%04d.jpg" % (dt.hour,count,)
+    fname = "img%02d-%04d.jpg" % (dt.day,count,)
     fpath = "/home/pi/picture/" + fname
     #logging.debug("debug:"+fname)
     if os.path.exists(fpath):
