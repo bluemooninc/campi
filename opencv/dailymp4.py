@@ -21,7 +21,7 @@ dt = datetime.datetime.today()
 mp4fname = "weekday%d.mp4" % (dt.weekday(),)
 fname, ext = os.path.splitext(mp4fname)
 UPLOAD_PATH = upfolder + serialno + '/'
-scp.upload(mp4fname,UPLOAD_PATH + fname + ext)
+scp.upload('/home/pi/picture/' + mp4fname, UPLOAD_PATH + mp4fname)
 newest = max(glob.iglob('/home/pi/picture/img*.jpg'), key=os.path.getctime)
 print newest
 shutil.copyfile(newest,'/home/pi/picture/'+fname+'.jpg')
