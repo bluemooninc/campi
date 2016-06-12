@@ -20,7 +20,7 @@ upfolder = inifile.get("user","uploadFolder")
 dt = datetime.datetime.today()
 mp4fname = "weekday%d.mp4" % (dt.weekday(),)
 fname, ext = os.path.splitext(mp4fname)
-UPLOAD_PATH = '/campid/' + serialno + '/'
+UPLOAD_PATH = '/picture/'
 scp.upload('/home/pi/picture/' + mp4fname, UPLOAD_PATH + mp4fname)
 newest = max(glob.iglob('/home/pi/picture/img*.jpg'), key=os.path.getctime)
 print newest
