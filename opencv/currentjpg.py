@@ -14,7 +14,7 @@ serialno = inifile.get("user","serialno")
 delay = inifile.getint("camera","delay")
 upfolder = inifile.get("user","uploadFolder")
 
-UPLOAD_PATH = '/home/' + serialno + '/picture/current.jpg'
+UPLOAD_PATH = '/campid/' + serialno + '/current.jpg'
 newest = max(glob.iglob('/home/pi/picture/img*.jpg'), key=os.path.getctime)
 print newest
 shutil.copyfile(newest,'/home/pi/picture/current.jpg')
