@@ -66,6 +66,7 @@ newestCount = 0
 ## capture start
 ##
 # capture frames from the camera
+time.sleep(1)
 count = 0
 for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
     # grab the raw NumPy array representing the image, then initialize the timestamp

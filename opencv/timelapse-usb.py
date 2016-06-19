@@ -56,6 +56,7 @@ if not cap:
     print "Could not open camera"  
     sys.exit()
 
+time.sleep(1)
 while(cap.isOpened()):
     # grab the raw NumPy array representing the image, then initialize the timestamp
     # and occupied/unoccupied text
