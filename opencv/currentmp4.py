@@ -15,6 +15,7 @@ dt = datetime.datetime.today()
 argvs = sys.argv
 argc = len(argvs)
 targetHour = int(argvs[1]) if argc == 2 else dt.hour-1
+targetHour = 23 if targetHour < 0 else targetHour
 print targetHour
 
 ## get ini parameter
