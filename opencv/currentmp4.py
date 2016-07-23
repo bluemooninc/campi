@@ -7,7 +7,17 @@ import datetime
 import os
 import glob
 import subprocess as sp
+import sys
 
+dt = datetime.datetime.today()
+
+## get command line option
+argvs = sys.argv
+argc = len(argvs)
+targetHour = int(argvs[1]) if argc == 2 else dt.hour-1
+print targetHour
+
+## get ini parameter
 inifile = ConfigParser.SafeConfigParser()
 inifile.read("/home/pi/camlaps.ini")
 serialno = inifile.get("user","serialno")
@@ -15,16 +25,17 @@ delay = inifile.getint("camera","delay")
 upfolder = inifile.get("user","uploadFolder")
 
 UPLOAD_PATH = '/picture/'
-dt = datetime.datetime.today()
-fname = "hour%02d.mp4" % (dt.hour-1,)
-mp4fname = max(glob.iglob('/home/pi/picture/hour*.mp4'), key=os.path.getctime)
+fname = "hour%02d.mp4" % (targetHour,)
+##mp4fname = max(glob.iglob('/home/pi/picture/hour*.mp4'), key=os.path.getctime)
+mp4fname = '/home/pi/picture/' + fname
 print mp4fname
 if os.path.isfile(mp4fname): 
   fname, ext = os.path.splitext(os.path.basename(mp4fname))
   jpgname = fname + ".jpg"
   scp.upload(mp4fname,UPLOAD_PATH + os.path.basename(mp4fname))
 
-currentjpg = max(glob.iglob('/home/pi/picture/img*.jpg'), key=os.path.getctime)
+targetImg = '/home/pi/picture/img%02d*.jpg' % (targetHour,)
+currentjpg = max(glob.iglob(targetImg), key=os.path.getctime)
 if os.path.isfile(currentjpg): 
   print currentjpg
   shutil.copyfile(currentjpg,'/home/pi/picture/'+jpgname)
